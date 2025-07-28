@@ -17,7 +17,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const onToggle = () => setOpen(!open);
   const searchParams = useSearchParams();
-  const lang = searchParams.get("lang");
+  const lang = searchParams.get("lang") || "en";
 
   const router = useRouter();
 
@@ -171,7 +171,9 @@ export default function Navbar() {
             onClick={() => handleLanguageChange()}
             className="flex items-center gap-1 text-sm text-gray-600"
           >
-            <span className="font-medium">EN</span>
+            <span className="font-medium">
+              {lang === "en" ? "বাংলা" : "English"}
+            </span>
           </div>
 
           {/* Phone Number */}
