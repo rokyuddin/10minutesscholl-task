@@ -10,20 +10,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { useState } from "react";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const onToggle = () => setOpen(!open);
+  const searchParams = useSearchParams();
+  const lang = searchParams.get("lang");
+
+  const router = useRouter();
+
+  const handleLanguageChange = () => {
+    if (lang === "en") {
+      router.push("/?lang=bn");
+    } else {
+      router.push("/?lang=en");
+    }
+  };
+
   return (
     <header className="w-full bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
@@ -162,8 +167,10 @@ export default function Navbar() {
         {/* Right Side Actions */}
         <div className="flex items-center gap-4 flex-shrink-0">
           {/* Language Selector */}
-          <div className="flex items-center gap-1 text-sm text-gray-600">
-            <span className="font-medium">🌐</span>
+          <div
+            onClick={() => handleLanguageChange()}
+            className="flex items-center gap-1 text-sm text-gray-600"
+          >
             <span className="font-medium">EN</span>
           </div>
 
